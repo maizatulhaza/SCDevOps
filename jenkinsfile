@@ -1,44 +1,37 @@
 pipeline {
     agent any
-    
+
     stages {
         stage('Checkout') {
             steps {
-                checkout scm
+                git 'https://github.com/maizatulhaza/SCDevOps.git'
             }
         }
-        
+
         stage('Build') {
             steps {
-                // Perform build steps here
+                // Build steps for your project
                 sh 'mvn clean package'
             }
         }
-        
-        stage('Test') {
+
+        stage('Run') {
             steps {
-                // Run tests here
-                sh 'mvn test'
-            }
-        }
-        
-        stage('Deploy') {
-            steps {
-                // Perform deployment steps here
-                sh 'mvn deploy'
+                // Run steps for your project
+                sh 'java -jar target/my-project.jar'
             }
         }
     }
-    
+
     post {
         success {
-            // Actions to be performed on successful build
-            echo 'Build and deployment successful!'
+            // Actions to be performed on successful build and run
+            echo 'Build and run successful!'
         }
         
         failure {
-            // Actions to be performed on build failure
-            echo 'Build failed!'
+            // Actions to be performed on build or run failure
+            echo 'Build or run failed!'
         }
     }
 }
