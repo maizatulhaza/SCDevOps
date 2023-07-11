@@ -1,0 +1,44 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Checkout') {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage('Build') {
+            steps {
+                // Perform build steps here
+                sh 'mvn clean package'
+            }
+        }
+        
+        stage('Test') {
+            steps {
+                // Run tests here
+                sh 'mvn test'
+            }
+        }
+        
+        stage('Deploy') {
+            steps {
+                // Perform deployment steps here
+                sh 'mvn deploy'
+            }
+        }
+    }
+    
+    post {
+        success {
+            // Actions to be performed on successful build
+            echo 'Build and deployment successful!'
+        }
+        
+        failure {
+            // Actions to be performed on build failure
+            echo 'Build failed!'
+        }
+    }
+}
