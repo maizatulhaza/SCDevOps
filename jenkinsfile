@@ -11,14 +11,14 @@ pipeline {
         stage('Build') {
             steps {
                 // Build steps for your project
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
         }
 
         stage('Run') {
             steps {
                 // Run steps for your project
-                sh 'java -jar target/my-project.jar'
+                bat 'java -jar target/my-project.jar'
             }
         }
     }
